@@ -22,14 +22,12 @@ const BoatsNew: React.FC = () => {
   const [selectedBoat, setSelectedBoat] = useState<Boat | null>(null);
   const [problemForm, setProblemForm] = useState<ProblemForm>({ description: '', part_affected: '' });
   const [problemStatus, setProblemStatus] = useState<'open' | 'closed'>('open');
-  const [selectedShiftId, setSelectedShiftId] = useState<number | null>(
-    selectedShift?.id && selectedShift.id !== -1 ? selectedShift.id : null
-  );
+  const [selectedShiftId, setSelectedShiftId] = useState<number | null>(selectedShift?.id && selectedShift.id !== -1 ? selectedShift.id : null);
   const [showShiftSelector, setShowShiftSelector] = useState(false);
   
   const shiftNames = ['Primo', 'Secondo', 'Terzo', 'Quarto', 'Quinto', 'Sesto'];
   const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
-  
+
   const { data: boats } = useQuery({
     queryKey: ['boats', selectedType],
     queryFn: async () => {

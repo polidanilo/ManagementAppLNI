@@ -8,8 +8,6 @@ app = FastAPI(title="LNI Works API", description="Gestione centro nautico", vers
 
 @app.on_event("startup")
 def startup_db_setup():
-    """Esegue operazioni di database all'avvio del server."""
-    
     from app.db.session import engine, SessionLocal
     from app.db.models import User
     from app.core.security import hash_password
@@ -25,15 +23,13 @@ def startup_db_setup():
         db.commit()
     db.close()
 
-origins = [
-    "*",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=[
+        "*",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

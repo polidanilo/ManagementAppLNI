@@ -10,19 +10,17 @@ from app.db.models import Season, Shift
 
 def add_seasons_and_shifts():
     db = SessionLocal()
-    
+
     try:
-        # STAGIONE 2024
         season_2024 = Season(
             name="Estate 2024",
             start_date=date(2024, 6, 10),
             end_date=date(2024, 8, 30),
-            is_active=True  # Passata
+            is_active=True
         )
         db.add(season_2024)
-        db.flush()  # Per ottenere l'ID senza fare commit
-        
-        # Turni per 2024
+        db.flush()
+
         shifts_2024 = [
             Shift(season_id=season_2024.id, shift_number=1, start_date=date(2024, 6, 1), end_date=date(2024, 6, 30)),
             Shift(season_id=season_2024.id, shift_number=2, start_date=date(2024, 7, 1), end_date=date(2024, 7, 31)),
@@ -30,7 +28,7 @@ def add_seasons_and_shifts():
             Shift(season_id=season_2024.id, shift_number=4, start_date=date(2024, 9, 1), end_date=date(2024, 9, 30)),
         ]
         db.add_all(shifts_2024)
-        
+
         # STAGIONE 2025 (modifica se esiste già)
         season_2025 = db.query(Season).filter(Season.name.like("%2025%")).first()
         if season_2025:
@@ -47,7 +45,7 @@ def add_seasons_and_shifts():
             )
             db.add(season_2025)
             db.flush()
-        
+
         # Turni per 2025 (aggiungi solo se non esistono)
         existing_shifts_2025 = db.query(Shift).filter(Shift.season_id == season_2025.id).count()
         if existing_shifts_2025 == 0:
@@ -60,10 +58,10 @@ def add_seasons_and_shifts():
             db.add_all(shifts_2025)
         else:
             print(f"ℹ️ Stagione 2025 ha già {existing_shifts_2025} turni")
-        
+
         db.commit()
         print("✅ Stagioni e turni aggiunti con successo!")
-        
+
         # Stampa riepilogo
         all_seasons = db.query(Season).all()
         for season in all_seasons:

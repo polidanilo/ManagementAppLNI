@@ -14,29 +14,19 @@ const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   
-  // Stati per elimina lavori
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [workToDelete, setWorkToDelete] = useState<number | null>(null);
   
-  // State per parallax cerchi emerald
   const [scrollY, setScrollY] = useState(0);
 
-  // ❌ RIMUOVI COMPLETAMENTE QUESTO useEffect - Non serve più!
-  // Il context gestisce già il localStorage automaticamente
-
-  // Effetto per invalidare le query quando cambia il turno selezionato
   useEffect(() => {
     if (selectedShift) {
-      // Invalida le query specifiche per il turno selezionato
       queryClient.invalidateQueries({ queryKey: ['problems-open', selectedShift.id] });
       queryClient.invalidateQueries({ queryKey: ['recent-works', selectedShift.id] });
       queryClient.invalidateQueries({ queryKey: ['recent-orders', selectedShift.id] });
     }
   }, [selectedShift?.id, queryClient]);
 
-  // ... resto del codice rimane uguale
-
-  // Fetch seasons
   const { data: seasons, isLoading: seasonsLoading } = useQuery({
     queryKey: ['seasons'],
     queryFn: async () => {
@@ -45,15 +35,11 @@ const Dashboard: React.FC = () => {
     },
   });
 
-  // Fetch shifts quando cambia la stagione
   const { data: shifts, isLoading: shiftsLoading, error: shiftsError } = useQuery({
     queryKey: ['shifts', selectedSeason?.id],
     queryFn: async () => {
       if (!selectedSeason) return [];
-      console.log('🔄 Fetching shifts for season:', selectedSeason.id);
       const response = await shiftService.getBySeasonId(selectedSeason.id);
-      console.log('✅ Shifts received:', response.data);
-      // Ordina i turni per shift_number
       const sortedShifts = response.data.sort((a, b) => a.shift_number - b.shift_number);
       return sortedShifts;
     },

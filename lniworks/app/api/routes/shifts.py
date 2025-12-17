@@ -7,13 +7,13 @@ from app.api.dependencies import get_current_user
 
 router = APIRouter(prefix="/api/shifts", tags=["shifts"])
 
+
 @router.post("/", response_model=ShiftResponse, status_code=status.HTTP_201_CREATED)
-def create_shift(shift: ShiftCreate, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
-    # Check if season exists
+def create_shift(shift: ShiftCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     season = db.query(Season).filter(Season.id == shift.season_id).first()
     if not season:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Season not found")
-    
+
     db_shift = Shift(**shift.dict())
     db.add(db_shift)
     db.commit()

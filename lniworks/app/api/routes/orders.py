@@ -13,10 +13,11 @@ from openpyxl.styles import PatternFill, Font
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
 
-# Helper per convertire numero turno in nome ordinale
+
 def get_shift_ordinal_name(shift_number: int) -> str:
     ordinals = ['Primo', 'Secondo', 'Terzo', 'Quarto', 'Quinto', 'Sesto']
     return ordinals[shift_number - 1] if 0 < shift_number <= len(ordinals) else f"Turno {shift_number}"
+
 
 @router.post("/", response_model=OrderResponse, status_code=status.HTTP_201_CREATED)
 def create_order(order: OrderCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):

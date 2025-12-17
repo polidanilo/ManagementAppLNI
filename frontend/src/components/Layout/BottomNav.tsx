@@ -1,21 +1,16 @@
-// src/components/BottomNav.tsx
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
 
 const BottomNav: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
-  console.log('🧭 BottomNav renderizzato - location:', location.pathname);
 
   const navItems = [
     { 
       name: 'Dashboard', 
       path: '/', 
-      color: '#10B981', // Emerald
-
-icon: (
+      color: '#10B981',
+      icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
@@ -24,7 +19,7 @@ icon: (
     { 
       name: 'Imbarcazioni', 
       path: '/boats', 
-      color: '#FF5958', // Rosso LNI
+      color: '#FF5958',
       newPath: '/boats?modal=new',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -35,7 +30,7 @@ icon: (
     { 
       name: 'Lavori', 
       path: '/works', 
-      color: '#FF9151', // Arancione LNI
+      color: '#FF9151',
       newPath: '/works?modal=new',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -47,7 +42,7 @@ icon: (
     { 
       name: 'Acquisti', 
       path: '/orders', 
-      color: '#39A8FB', // Blu
+      color: '#39A8FB',
       newPath: '/orders?modal=new',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,7 +52,6 @@ icon: (
     },
   ];
 
-  // Determina quale pagina è attiva per il pulsante +
   const getActivePageForAdd = () => {
     const currentPath = location.pathname;
     if (currentPath.startsWith('/boats')) return navItems.find(item => item.path === '/boats');
@@ -79,7 +73,6 @@ icon: (
     <nav className="fixed bottom-0 left-0 right-0 z-50 flex justify-center items-center">
       <div className="shadow-sm px-2.5 py-2 w-full max-w-2xl mx-auto" style={{backgroundColor: 'rgb(17, 17, 17)'}}>
         <div className="flex items-center justify-around">
-          {/* Dashboard */}
           <Link
             to={navItems[0].path}
             className={`flex-1 flex items-center justify-center p-3 transition-all duration-200 ${
@@ -91,7 +84,6 @@ icon: (
             {navItems[0].icon}
           </Link>
 
-          {/* Imbarcazioni */}
           <Link
             to={navItems[1].path}
             className={`flex-1 flex items-center justify-center p-3 transition-all duration-200 ${
@@ -103,8 +95,7 @@ icon: (
             {navItems[1].icon}
           </Link>
 
-          {/* Pulsante + centrale */}
-          <div className="flex-1 flex items-center justify-center relative group px-3 ">
+          <div className="flex-1 flex items-center justify-center relative group px-3">
             <button
               onClick={handleAddClick}
               disabled={!isAddButtonActive}
@@ -116,7 +107,7 @@ icon: (
               style={
                 isAddButtonActive && activePageForAdd 
                   ? {backgroundColor: activePageForAdd.color, border: '2px solid white'} 
-                  : {backgroundColor: ' #2a2a2a', border: '0px solid #047857'}
+                  : {backgroundColor: '#2a2a2a', border: 'none'}
               }
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,15 +115,13 @@ icon: (
                 <path d="M20 12H4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            {/* Tooltip quando disabled */}
             {!isAddButtonActive && (
               <div className="absolute bottom-full mb-3 text-center hidden group-hover:block bg-primary-tip bg-opacity-80 text-white text-xs rounded pt-2 pb-1.5 px-3 whitespace-nowrap">
-                Passa alle altre pagine per poter <br></br> aggiungere problemi / lavori / ordini
+                Passa alle altre pagine per aggiungere elementi
               </div>
             )}
           </div>
 
-          {/* Lavori */}
           <Link
             to={navItems[2].path}
             className={`flex-1 flex items-center justify-center p-3 transition-all duration-200 ${
@@ -144,7 +133,6 @@ icon: (
             {navItems[2].icon}
           </Link>
 
-          {/* Acquisti */}
           <Link
             to={navItems[3].path}
             className={`flex-1 flex items-center justify-center p-3 transition-all duration-200 ${

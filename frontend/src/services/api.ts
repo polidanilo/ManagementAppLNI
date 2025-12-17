@@ -10,39 +10,21 @@ const api = axios.create({
   },
 });
 
-// Interceptor per aggiungere il token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    console.log('🔑 Request headers:', config.headers);
-    console.log('📡 Request URL:', config.url);
-    console.log('📦 Request data:', config.data);
     return config;
   },
-  (error) => {
-    console.error('❌ Request error:', error);
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Interceptor per gestire le risposte
 api.interceptors.response.use(
-  (response) => {
-    console.log('✅ Response status:', response.status);
-    console.log('📦 Response data:', response.data);
-    return response;
-  },
+  (response) => response,
   (error) => {
-    console.error('❌ Response error:', error);
-    console.error('❌ Error status:', error.response?.status);
-    console.error('❌ Error data:', error.response?.data);
-    
-    // Se ricevi 401 (Unauthorized), pulisci il token e reindirizza al login
     if (error.response?.status === 401) {
-      console.log('🔒 Token scaduto o non valido, reindirizzo al login...');
       localStorage.removeItem('token');
       localStorage.removeItem('currentUser');
       localStorage.removeItem('selectedSeason');

@@ -26,13 +26,10 @@ const Modal: React.FC<ModalProps> = ({
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/50 transition-opacity"
         onClick={onClose}
       />
-      
-      {/* Modal */}
       <div className={`relative bg-white rounded-lg shadow-xl w-full mx-4 ${sizeClasses[size]}`}>
         {title && (
           <div className="flex items-center justify-between p-6 border-b border-gray-200">

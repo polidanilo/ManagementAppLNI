@@ -39,8 +39,7 @@ const WorksNew: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['all-works'] });
       navigate('/works');
     },
-    onError: (error) => {
-      console.error('Error creating work:', error);
+    onError: () => {
       alert('Errore durante la creazione del lavoro');
     },
   });
@@ -62,7 +61,7 @@ const WorksNew: React.FC = () => {
       alert('Seleziona una categoria');
       return;
     }
-    
+
     const payload = {
       title: workForm.title,
       description: workForm.description || '',

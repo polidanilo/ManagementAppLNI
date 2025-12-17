@@ -23,7 +23,6 @@ const Works: React.FC = () => {
   const showNewModal = searchParams.get('modal') === 'new';
   const showDetailsModal = searchParams.get('id') !== null;
 
-  // Fetch seasons
   const { data: seasons, isLoading: seasonsLoading } = useQuery({
     queryKey: ['seasons'],
     queryFn: async () => {
@@ -32,7 +31,6 @@ const Works: React.FC = () => {
     },
   });
 
-  // Fetch shifts quando cambia la stagione
   const { data: shifts, isLoading: shiftsLoading } = useQuery({
     queryKey: ['shifts', selectedSeason?.id],
     queryFn: async () => {

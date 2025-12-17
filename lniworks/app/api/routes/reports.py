@@ -13,20 +13,20 @@ from app.api.dependencies import get_current_user
 
 router = APIRouter(prefix="/api/reports", tags=["reports"])
 
+
 @router.get("/season/{season_id}", response_model=SeasonReport)
-def get_season_report(season_id: int, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+def get_season_report(season_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     season = db.query(Season).filter(Season.id == season_id).first()
     if not season:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Season not found")
-    
+
     shifts = db.query(Shift).filter(Shift.season_id == season_id).all()
     shift_ids = [s.id for s in shifts]
-    
+
     if not shift_ids:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No shifts in this season")
-    
+
     orders = db.query(Order).filter(Order.shift_id.in_(shift_ids)).all()
-    # Filtra solo ordini completati per i totali
     completed_orders = [o for o in orders if o.status == OrderStatus.COMPLETED]
     total_orders_amount = sum([o.amount for o in completed_orders])
     orders_summary = OrderSummary(

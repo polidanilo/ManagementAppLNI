@@ -186,77 +186,8 @@
     padding: 0.5rem;
   }
 
-  .grid-cols-auto {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  .grid-cols-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .grid-cols-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .grid-cols-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .grid-cols-5 {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  .flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .flex-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .flex-evenly {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
-  .space-y-4 > * + * {
-    margin-top: 1rem;
-  }
-
-  .space-x-4 > * + * {
-    margin-left: 1rem;
-  }
-
-  .p-6 {
-    padding: 1.5rem;
-  }
-
-  .m-4 {
-    margin: 1rem;
-  }
-
-  .mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .w-full {
-    width: 100%;
-  }
-
-  .h-full {
-    height: 100%;
-  }
+  /* Layout utilities - use Tailwind equivalents instead */
+  /* Kept for backward compatibility if needed, but prefer Tailwind classes */
 }
 
 /* Animazioni fighe per i bottoni */

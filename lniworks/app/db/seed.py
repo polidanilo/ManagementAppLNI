@@ -4,22 +4,18 @@ from app.db.models import Boat, BoatPart, BoatType
 
 def seed_boats():
     db = SessionLocal()
-    
-    # Check if boats already seeded by counting each type
+
     gommoni_count = db.query(Boat).filter(Boat.type == BoatType.GOMMONE).count()
     if gommoni_count > 0:
-        print("Boats already seeded, skipping...")
         db.close()
         return
-    
-    # Gommoni
+
     gommoni = [
         "Gommorizzo giallo (Honda 1)",
         "Gommorizzo blu (Suzuki 3)",
         "Gommorizzo rosso (Suzuki 2)",
         "Forsea",
         "Marshall",
-        "Staff Only (Honda 2)",
         "Arancio 1 (Suzuki 1)",
         "Arancio 1 (Evinrude)",
         "Arancio 3 (Johnson)",

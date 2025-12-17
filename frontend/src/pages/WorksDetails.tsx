@@ -22,10 +22,10 @@ const WorksDetails: React.FC = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [users, setUsers] = useState<Array<{ id: number; username: string }>>([]);
   const [editShiftId, setEditShiftId] = useState<number | null>(null);
-  
+
   const shiftNames = ['Primo', 'Secondo', 'Terzo', 'Quarto', 'Quinto', 'Sesto'];
   const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
-  
+
   const { data: work, isLoading } = useQuery({
     queryKey: ['work', id],
     queryFn: async () => {
@@ -39,9 +39,7 @@ const WorksDetails: React.FC = () => {
   useEffect(() => {
     authService.getUsers().then(res => {
       setUsers(res.data);
-    }).catch(err => {
-      console.error('Error loading users:', err);
-    });
+    }).catch(() => {});
   }, []);
 
   useEffect(() => {

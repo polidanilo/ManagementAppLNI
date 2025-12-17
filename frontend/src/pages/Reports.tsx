@@ -31,7 +31,6 @@ const Reports: React.FC = () => {
   useEffect(() => {
     if (seasonId) {
       shiftService.getBySeasonId(Number(seasonId)).then((res) => {
-        // Ordina i turni per shift_number
         const sortedShifts = res.data.sort((a, b) => a.shift_number - b.shift_number);
         setShifts(sortedShifts);
       });
@@ -41,12 +40,10 @@ const Reports: React.FC = () => {
     }
   }, [seasonId]);
 
-  // Salva selectedShifts in localStorage
   useEffect(() => {
     localStorage.setItem('reports_selected_shifts', JSON.stringify(selectedShifts));
   }, [selectedShifts]);
 
-  // Sincronizza seasonId con context
   useEffect(() => {
     if (contextSeason && seasonId !== contextSeason.id) {
       setSeasonId(contextSeason.id);

@@ -25,7 +25,7 @@ const OrdersNew: React.FC = () => {
     selectedShift?.id && selectedShift.id !== -1 ? selectedShift.id : null
   );
   const [showShiftSelector, setShowShiftSelector] = useState(false);
-  
+
   const shiftNames = ['Primo', 'Secondo', 'Terzo', 'Quarto', 'Quinto', 'Sesto'];
   const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 
@@ -38,8 +38,7 @@ const OrdersNew: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['all-orders'] });
       navigate('/orders');
     },
-    onError: (error) => {
-      console.error('Error creating order:', error);
+    onError: () => {
       alert('Errore durante la creazione dell\'ordine');
     },
   });
@@ -65,7 +64,7 @@ const OrdersNew: React.FC = () => {
       alert('Inserisci un importo valido');
       return;
     }
-    
+
     const payload = {
       title: orderForm.title,
       amount: orderForm.amount,

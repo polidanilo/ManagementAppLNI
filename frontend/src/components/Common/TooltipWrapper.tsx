@@ -1,9 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 
-/**
- * Global Tooltip Wrapper
- * Automatically converts all native browser tooltips (title attribute) to custom styled tooltips
- */
 const TooltipWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
@@ -14,10 +10,9 @@ const TooltipWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const showTooltip = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const title = target.getAttribute('title') || target.getAttribute('data-tooltip');
-      
+
       if (!title) return;
 
-      // Store original title and remove it to prevent native tooltip
       if (target.getAttribute('title')) {
         target.setAttribute('data-tooltip', title);
         target.removeAttribute('title');
@@ -25,12 +20,10 @@ const TooltipWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
       currentTarget.current = target;
 
-      // Clear any existing timeout
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
 
-      // Show tooltip after delay
       timeoutRef.current = window.setTimeout(() => {
         if (!tooltipRef.current) {
           tooltipRef.current = document.createElement('div');
@@ -42,11 +35,8 @@ const TooltipWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =
         tooltipRef.current.textContent = title;
         tooltipRef.current.style.opacity = '1';
 
-        // Position tooltip
         const rect = target.getBoundingClientRect();
         const tooltipRect = tooltipRef.current.getBoundingClientRect();
-        
-        // Center horizontally above the element
         let left = rect.left + rect.width / 2 - tooltipRect.width / 2;
         let top = rect.top - tooltipRect.height - 8;
 

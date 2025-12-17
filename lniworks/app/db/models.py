@@ -6,7 +6,7 @@ import enum
 
 Base = declarative_base()
 
-# Enums
+
 class BoatType(str, enum.Enum):
     GOMMONE = "Gommone"
     OPTIMIST = "Optimist"
@@ -16,9 +16,11 @@ class BoatType(str, enum.Enum):
     TRIDENT = "Trident"
     CANOE = "Canoe"
 
+
 class OrderStatus(str, enum.Enum):
     PENDING = "pending"
     COMPLETED = "completed"
+
 
 class WorkCategory(str, enum.Enum):
     CAMPO = "Campo"
@@ -29,14 +31,15 @@ class WorkCategory(str, enum.Enum):
     VELE = "Vele"
     ALTRO = "Altro"
 
+
 class ProblemStatus(str, enum.Enum):
     OPEN = "open"
     CLOSED = "closed"
 
-# Models
+
 class User(Base):
     __tablename__ = "users"
-    
+
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
     password_hash = Column(String(255), nullable=False)
@@ -46,9 +49,10 @@ class User(Base):
     works = relationship("Work", back_populates="user")
     problems = relationship("BoatProblem", back_populates="reported_by_user")
 
+
 class Season(Base):
     __tablename__ = "seasons"
-    
+
     id = Column(Integer, primary_key=True)
     year = Column(Integer, nullable=False)
     name = Column(String(100), nullable=False)
@@ -56,9 +60,10 @@ class Season(Base):
     
     shifts = relationship("Shift", back_populates="season")
 
+
 class Shift(Base):
     __tablename__ = "shifts"
-    
+
     id = Column(Integer, primary_key=True)
     season_id = Column(Integer, ForeignKey("seasons.id"), nullable=False)
     shift_number = Column(Integer, nullable=False)
@@ -71,9 +76,10 @@ class Shift(Base):
     works = relationship("Work", back_populates="shift")
     problems = relationship("BoatProblem", back_populates="shift")
 
+
 class Order(Base):
     __tablename__ = "orders"
-    
+
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
@@ -91,9 +97,10 @@ class Order(Base):
     user = relationship("User", back_populates="orders")
     shift = relationship("Shift", back_populates="orders")
 
+
 class Work(Base):
     __tablename__ = "works"
-    
+
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
@@ -108,9 +115,10 @@ class Work(Base):
     user = relationship("User", back_populates="works")
     shift = relationship("Shift", back_populates="works")
 
+
 class Boat(Base):
     __tablename__ = "boats"
-    
+
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     type = Column(Enum(BoatType), nullable=False)
@@ -118,13 +126,15 @@ class Boat(Base):
     
     problems = relationship("BoatProblem", back_populates="boat")
 
+
 class BoatPart(Base):
     __tablename__ = "boat_parts"
-    
+
     id = Column(Integer, primary_key=True)
     boat_type = Column(Enum(BoatType), nullable=False)
     part_name = Column(String(100), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+
 
 class BoatProblem(Base):
     __tablename__ = "boat_problems"

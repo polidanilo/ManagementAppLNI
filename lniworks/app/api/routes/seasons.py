@@ -7,13 +7,13 @@ from app.api.dependencies import get_current_user
 
 router = APIRouter(prefix="/api/seasons", tags=["seasons"])
 
+
 @router.post("/", response_model=SeasonResponse, status_code=status.HTTP_201_CREATED)
-def create_season(season: SeasonCreate, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
-    # Check if season exists
+def create_season(season: SeasonCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     existing_season = db.query(Season).filter(Season.year == season.year).first()
     if existing_season:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Season already exists")
-    
+
     db_season = Season(**season.dict())
     db.add(db_season)
     db.commit()

@@ -15,7 +15,6 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Funzione per ottenere valori dal localStorage in modo sicuro
   const getFromStorage = <T,>(key: string, defaultValue: T): T => {
     try {
       const item = localStorage.getItem(key);
@@ -25,7 +24,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
-  // Inizializza stato dal localStorage
   const [selectedSeason, setSelectedSeason] = useState<Season | null>(() =>
     getFromStorage<Season | null>('selectedSeason', null)
   );
@@ -39,7 +37,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     getFromStorage<User | null>('currentUser', null)
   );
 
-  // Wrapper per setSelectedSeason che salva nel localStorage
   const handleSetSelectedSeason = (season: Season | null) => {
     setSelectedSeason(season);
     if (season) {
@@ -49,7 +46,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
-  // Wrapper per setSelectedShift che salva nel localStorage
   const handleSetSelectedShift = (shift: Shift | null) => {
     setSelectedShift(shift);
     if (shift) {
@@ -70,7 +66,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
-  // Wrapper per setCurrentUser che salva nel localStorage
   const handleSetCurrentUser = (user: User | null) => {
     setCurrentUser(user);
     if (user) {

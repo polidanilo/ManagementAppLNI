@@ -24,7 +24,6 @@ const Boats: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'open' | 'closed'>('open');
 
-  // Fetch seasons
   const { data: seasons, isLoading: seasonsLoading } = useQuery({
     queryKey: ['seasons'],
     queryFn: async () => {
@@ -33,7 +32,6 @@ const Boats: React.FC = () => {
     },
   });
 
-  // Fetch shifts quando cambia la stagione
   const { data: shifts, isLoading: shiftsLoading } = useQuery({
     queryKey: ['shifts', selectedSeason?.id],
     queryFn: async () => {
@@ -45,9 +43,8 @@ const Boats: React.FC = () => {
     enabled: !!selectedSeason,
   });
 
-  // Auto-select season 2025 ONLY on first load
   const [hasAutoSelected, setHasAutoSelected] = React.useState(false);
-  
+
   React.useEffect(() => {
     if (seasons && seasons.length > 0 && !selectedSeason && !hasAutoSelected) {
       const season2025 = seasons.find(s => s.name === '2025');
@@ -60,21 +57,17 @@ const Boats: React.FC = () => {
     }
   }, [seasons, selectedSeason, setSelectedSeason, hasAutoSelected]);
 
-  // Auto-select "Tutti" when shifts are loaded
   React.useEffect(() => {
     if (shifts && shifts.length > 0 && !selectedShift && selectedSeason && hasAutoSelected) {
-      // Seleziona "Tutti" - usa un oggetto speciale con id -1
       setSelectedShift({ id: -1, shift_number: 0, season_id: selectedSeason.id, start_date: '', end_date: '' } as any);
     }
   }, [shifts, selectedShift, selectedSeason, setSelectedShift, hasAutoSelected]);
 
-  // TUTTI i problemi esistenti (non solo della barca selezionata)
   const { data: allProblems, isLoading: problemsLoading } = useQuery({
     queryKey: ['all-problems', selectedShift?.id, selectedSeason?.id],
     queryFn: async () => {
       if (!selectedShift?.id) return [];
-      
-      // Se "Tutti" è selezionato (id === -1), recupera tutti i problemi della stagione
+
       if (selectedShift.id === -1 && shifts) {
         const allProblems = await Promise.all(
           shifts.map(shift => problemService.list({ shift_id: shift.id }))

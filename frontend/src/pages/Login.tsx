@@ -28,15 +28,12 @@ const Login: React.FC = () => {
 
       setToken(token);
 
-      // Prova a recuperare il profilo utente reale dal backend
       try {
         const profileResponse = await api.get('/api/auth/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setCurrentUser(profileResponse.data);
-      } catch (profileError) {
-        console.warn('⚠️ Impossibile recuperare il profilo utente, uso dati di default');
-        // Fallback: crea un profilo utente di default basato sull'username
+      } catch {
         const userProfile = {
           id: 1,
           username: username,

@@ -8,17 +8,17 @@ from datetime import datetime
 
 router = APIRouter(prefix="/api/problems", tags=["problems"])
 
+
 @router.post("/", response_model=ProblemResponse, status_code=status.HTTP_201_CREATED)
-def create_problem(problem: ProblemCreate, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
-    # Check boat and shift exist
+def create_problem(problem: ProblemCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     boat = db.query(Boat).filter(Boat.id == problem.boat_id).first()
     if not boat:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Boat not found")
-    
+
     shift = db.query(Shift).filter(Shift.id == problem.shift_id).first()
     if not shift:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Shift not found")
-    
+
     db_problem = BoatProblem(**problem.dict(), reported_by=current_user.id)
     db.add(db_problem)
     db.commit()

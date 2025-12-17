@@ -1,22 +1,17 @@
-"""
-Script per rimuovere tutti gli utenti fittizi dal database, mantenendo solo 'test'
-"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import User
 import os
 from dotenv import load_dotenv
 
-# Carica variabili d'ambiente
 load_dotenv()
 
-# Connessione al database
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://lniuser:lnipassword@localhost:5432/lnidb")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
+
 def remove_fake_users():
-    """Rimuove tutti gli utenti tranne 'test'"""
     db = SessionLocal()
     try:
         # Trova tutti gli utenti tranne 'test'
@@ -41,11 +36,11 @@ def remove_fake_users():
                 print(f"✅ Rimosso: {user.username}")
             except Exception as e:
                 print(f"❌ Errore rimuovendo {user.username}: {e}")
-        
+
         db.commit()
         print(f"\n✅ Operazione completata! Rimossi {deleted_count} utenti")
         print(f"✅ Utente 'test' mantenuto nel database")
-        
+
     except Exception as e:
         print(f"❌ Errore: {e}")
         db.rollback()

@@ -9,14 +9,11 @@ from app.db.models import Shift, Season
 from sqlalchemy import func
 
 def clean_duplicate_shifts():
-    """
-    Rimuove turni duplicati mantenendo solo il primo inserito per ogni (season_id, shift_number)
-    """
     db = SessionLocal()
-    
+
     try:
         print("🔍 Analisi turni duplicati...")
-        
+
         # Trova turni duplicati
         duplicates = db.query(
             Shift.season_id,
@@ -32,19 +29,19 @@ def clean_duplicate_shifts():
         if not duplicates:
             print("✅ Nessun turno duplicato trovato!")
             return
-        
+
         print(f"\n⚠️  Trovati {len(duplicates)} gruppi di turni duplicati:")
         for dup in duplicates:
             season = db.query(Season).filter(Season.id == dup.season_id).first()
             season_name = season.name if season else f"ID {dup.season_id}"
             print(f"   - Stagione '{season_name}', Turno {dup.shift_number}: {dup.count} copie")
-        
+
         # Chiedi conferma
         confirm = input("\n❓ Vuoi eliminare i duplicati? (mantiene solo il primo inserito) [s/N]: ")
         if confirm.lower() != 's':
             print("❌ Operazione annullata")
             return
-        
+
         # Elimina duplicati
         deleted_count = 0
         for dup in duplicates:
@@ -53,16 +50,16 @@ def clean_duplicate_shifts():
                 Shift.season_id == dup.season_id,
                 Shift.shift_number == dup.shift_number
             ).order_by(Shift.id).all()
-            
+
             # Mantieni il primo, elimina gli altri
             for shift in shifts[1:]:
                 print(f"   🗑️  Eliminando turno ID {shift.id} (Stagione {shift.season_id}, Turno {shift.shift_number})")
                 db.delete(shift)
                 deleted_count += 1
-        
+
         db.commit()
         print(f"\n✅ Eliminati {deleted_count} turni duplicati!")
-        
+
         # Mostra riepilogo finale
         print("\n📊 Riepilogo turni per stagione:")
         seasons = db.query(Season).all()

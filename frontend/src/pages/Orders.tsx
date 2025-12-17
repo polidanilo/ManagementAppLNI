@@ -62,7 +62,6 @@ const Orders: React.FC = () => {
   // Auto-select "Tutti" when shifts are loaded
   React.useEffect(() => {
     if (shifts && shifts.length > 0 && !selectedShift && selectedSeason && hasAutoSelected) {
-      // Seleziona "Tutti" - usa un oggetto speciale con id -1
       setSelectedShift({ id: -1, shift_number: 0, season_id: selectedSeason.id, start_date: '', end_date: '' } as any);
     }
   }, [shifts, selectedShift, selectedSeason, setSelectedShift, hasAutoSelected]);
@@ -73,7 +72,6 @@ const Orders: React.FC = () => {
     queryFn: async () => {
       if (!selectedShift?.id) return [];
       
-      // Se "Tutti" è selezionato (id === -1), recupera tutti gli ordini della stagione
       if (selectedShift.id === -1 && shifts) {
         const allOrders = await Promise.all(
           shifts.map(shift => orderService.getAll({ shift_id: shift.id }))
@@ -86,7 +84,6 @@ const Orders: React.FC = () => {
     },
     enabled: !!selectedShift?.id && (selectedShift.id !== -1 || !!shifts),
   });
-
 
   const toggleOrderStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: number; status: 'pending' | 'completed' }) => {
@@ -104,11 +101,6 @@ const Orders: React.FC = () => {
     toggleOrderStatusMutation.mutate({ id: order.id, status: newStatus });
   };
 
-
-
-
-  // Filtered problems - ora filtra da TUTTI i problemi esistenti
-  // Handlers per season e shift
   const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (value === '') {

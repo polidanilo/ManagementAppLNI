@@ -3,6 +3,7 @@ from datetime import datetime, date
 from app.db.models import OrderStatus
 from typing import List
 
+
 class OrderBase(BaseModel):
     title: str | None = None
     description: str | None = None
@@ -13,8 +14,10 @@ class OrderBase(BaseModel):
     notes: str | None = None
     created_by: str | None = None
 
+
 class OrderCreate(OrderBase):
     status: str | None = None
+
 
 class OrderUpdate(OrderBase):
     title: str | None = None
@@ -27,6 +30,7 @@ class OrderUpdate(OrderBase):
     created_by: str | None = None
     user_id: int | None = None
     status: str | None = None
+
 
 class OrderResponse(OrderBase):
     id: int

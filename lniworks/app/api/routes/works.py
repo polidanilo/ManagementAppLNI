@@ -12,12 +12,13 @@ import pandas as pd
 
 router = APIRouter(prefix="/api/works", tags=["works"])
 
+
 @router.post("/", response_model=WorkResponse, status_code=status.HTTP_201_CREATED)
-def create_work(work: WorkCreate, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+def create_work(work: WorkCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     shift = db.query(Shift).filter(Shift.id == work.shift_id).first()
     if not shift:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Shift not found")
-    
+
     db_work = Work(**work.dict(), user_id=current_user.id)
     db.add(db_work)
     db.commit()

@@ -37,9 +37,7 @@ const BoatsDetails: React.FC = () => {
   useEffect(() => {
     authService.getUsers().then(res => {
       setUsers(res.data);
-    }).catch(err => {
-      console.error('Error loading users:', err);
-    });
+    }).catch(() => {});
   }, []);
 
   useEffect(() => {

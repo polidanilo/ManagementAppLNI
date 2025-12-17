@@ -6,15 +6,11 @@ from app.api.dependencies import get_current_user
 
 router = APIRouter(prefix="/api/dashboard", tags=["dashboard"])
 
+
 @router.get("/home")
-def get_home_dashboard(db: Session = Depends(get_db), current_user = Depends(get_current_user)):
-    # Last 5 completed orders
+def get_home_dashboard(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     completed_orders = db.query(Order).filter(Order.status == OrderStatus.COMPLETED).order_by(Order.updated_at.desc()).limit(5).all()
-    
-    # Last 5 completed works
     completed_works = db.query(Work).filter(Work.status == OrderStatus.COMPLETED).order_by(Work.updated_at.desc()).limit(5).all()
-    
-    # Open boat problems
     open_problems = db.query(BoatProblem).filter(BoatProblem.status == ProblemStatus.OPEN).order_by(BoatProblem.reported_date.desc()).limit(10).all()
     
     return {

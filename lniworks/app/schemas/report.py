@@ -1,11 +1,13 @@
 from pydantic import BaseModel
 from datetime import datetime
 
+
 class OrderSummary(BaseModel):
     total_amount: float
     total_count: int
     pending_count: int
     completed_count: int
+
 
 class WorkSummary(BaseModel):
     total_count: int
@@ -13,10 +15,12 @@ class WorkSummary(BaseModel):
     completed_count: int
     by_category: dict[str, int]
 
+
 class ProblemSummary(BaseModel):
     total_count: int
     open_count: int
     closed_count: int
+
 
 class SeasonReport(BaseModel):
     season_name: str
