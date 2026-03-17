@@ -1,17 +1,24 @@
-# LNI Management App
+# Management App - LNI Nazioni
+This project was a personal challenge: redesigning the management tool used at the Italian Naval League nautical center I work at seasonally. The existing software had a rough interface and limited features, so I used it as a practical case study to build a modern, mobile-first alternative from scratch.
 
-A mobile-first management tool built to solve a real-world problem at the LNI nautical center: transitioning daily operations from paper logs to a streamlined digital workspace for tracking boat problems, volunteer shifts, and purchase orders.
+The app ran end-to-end on Render during testing and is production-ready, though not officially in use at the center (yet!). Though I built the backend in Python from scratch, the bulk of my effort went into UX, working with TypeScript and Tailwind to match the frictionless feel of the apps I and the staff use daily.
 
 [GIF preview here]
+
+## Key features
+- Season and shift-based filtering across all views.
+- Bottom-sheet modals for data entry without losing page context.
+- One-tap status toggles on list items (open → closed, pending → completed).
+- Excel export for orders and shift reports.
 
 ## Tech stack
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | React, Vite, TypeScript, Tailwind CSS |
-| Backend | FastAPI, Python, SQLAlchemy ORM |
-| Database | PostgreSQL 15 (Docker) |
-| Auth | JWT via Bearer token |
+| **Frontend** | React, Vite, TypeScript, Tailwind CSS |
+| **Backend** | FastAPI, Python, SQLAlchemy ORM |
+| **Database** | PostgreSQL 15 (Docker) |
+| **Auth** | JWT via Bearer token |
 
 ## Architecture
 ```
@@ -33,7 +40,7 @@ sudo docker compose up -d
 cd backend
 source .venv/bin/activate
 uvicorn app.main:app --reload
-# → API live at: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+# → API live at: http://127.0.0.1:8000
 ```
 
 **3. Frontend**
