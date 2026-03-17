@@ -47,17 +47,41 @@ SQLAlchemy Object-Relational Mapping (ORM) classes. These define the physical st
 
 The infrastructure definition. It spins up a PostgreSQL 15 database in an isolated container, ensuring that the development environment is perfectly reproducible across different machines without localized dependency conflicts.
 
-### System Integration Notes
+### System integration notes
 * **Data Flow:** A typical mutation (e.g., creating an order) follows a strict path: React Component -> Axios POST request -> FastAPI Router -> Pydantic Validation -> SQLAlchemy Session -> PostgreSQL Insert -> JSON Response -> React Query State Invalidation -> UI Update.
 * **Authentication Security:** JWT (JSON Web Tokens) are generated upon login and stored in the client's `localStorage`. An Axios interceptor automatically attaches this token to the `Authorization` header of every subsequent outgoing API request.
 * **Database Seeding:** A custom `seed.py` script was developed to populate the database with initial structural data (Boat types, Parts, standard Shifts) to allow immediate testing without a cold-start UI lock.
 
-## How to Run Locally
+## How to run locally
 
 The project requires Docker and Node.js. 
 
-**1. Start the Database**
+**1. Start the database**
 Navigate to the backend directory and spin up the PostgreSQL container:
-```bash
+
 cd backend
 sudo docker compose up -d
+
+**2. Start the backend API**
+Activate the Python virtual environment and start the Uvicorn ASGI server:
+
+source .venv/bin/activate
+uvicorn app.main:app --reload
+*(The API will be available at http://127.0.0.1:8000)*
+
+**3. Start the frontend application**
+In a new terminal pane, navigate to the frontend directory, install the dependencies, and start the Vite development server:
+
+cd frontend
+npm install
+npm run dev
+*(The web application will be accessible at http://localhost:3000)*
+
+**Limitations and future work**
+The application behaves as intended and is effectively ready for production deployment as an internal tool. However, being a first iteration, there are areas for architectural improvement:
+
+Authentication Storage: Currently, JWTs are stored in localStorage, which is susceptible to XSS (Cross-Site Scripting) attacks. Moving the token to HttpOnly secure cookies would harden the authentication layer.
+
+Role-Based Access Control (RBAC): All authenticated users currently share the same permission level. Implementing a strict Admin/User hierarchy would be necessary before scaling the app to a wider volunteer base.
+
+Testing Coverage: While manual edge-case testing was extensive, the project currently lacks a formalized automated testing suite (e.g., pytest for the backend, Jest/Cypress for the frontend) to prevent regressions during future updates.
