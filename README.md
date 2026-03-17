@@ -51,7 +51,7 @@ npm run dev
 # → App live at: http://localhost:3000
 ```
 
-## Known limitations
+## Future work
 
 - **Auth storage:** JWTs are currently stored in `localStorage`, which is vulnerable to XSS. Moving to `HttpOnly` secure cookies is the planned production-ready alternative.
 - **No RBAC:** All authenticated users currently share the same permission level. An Admin/User hierarchy is required before wider deployment.
