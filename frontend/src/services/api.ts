@@ -30,7 +30,7 @@ api.interceptors.response.use(
       localStorage.removeItem('selectedSeason');
       localStorage.removeItem('selectedShift');
       
-      // Reindirizza al login solo se non siamo già lì
+      // Redirect to login only if we're not already there
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
       }
@@ -107,7 +107,7 @@ export const orderService = {
     sort_by?: 'order_date' | 'amount' | 'created_at' | 'updated_at' | 'category' | 'status' | 'title' | 'id';
     order?: 'asc' | 'desc';
   }) => {
-    // Converti shift_ids array in stringa separata da virgole
+    // Convert shift_ids array to a comma-separated string
     const exportParams = { ...params };
     if (params?.shift_ids && Array.isArray(params.shift_ids)) {
       exportParams.shift_ids = params.shift_ids.join(',') as any;

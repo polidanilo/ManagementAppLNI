@@ -1,4 +1,0 @@
-title,amount,category,order_date,shift_id,season_id,status,notes,created_by
-Rifornimento carburante,250.00,Carburante,2025-01-15,1,1,completed,Rifornimento mensile,mario.rossi
-Acquisto materiale pulizia,85.50,Manutenzione,2025-02-10,2,1,completed,,luca.bianchi
-Riparazione motore gommone,450.00,Riparazioni,2025-03-05,3,1,pending,Da completare,giulia.verdi

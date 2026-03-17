@@ -74,7 +74,7 @@ const BoatsNew: React.FC = () => {
       alert('Seleziona un turno');
       return;
     }
-    // Descrizione e parte sono opzionali
+    // Description and part are optional
     const payload = {
       boat_id: selectedBoat.id,
       description: problemForm.description || '',
@@ -84,7 +84,6 @@ const BoatsNew: React.FC = () => {
       shift_id: selectedShiftId,
     } as Omit<Problem, 'id' | 'resolved_date'>;
     
-    console.log('Creating problem with status:', problemStatus, 'Full payload:', payload);
     createProblemMutation.mutate(payload);
   };
 

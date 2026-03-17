@@ -54,11 +54,9 @@ const Dashboard: React.FC = () => {
       // Try to find season with name "2025"
       const season2025 = seasons.find(s => s.name === '2025');
       if (season2025) {
-        console.log('🎯 Auto-selecting season 2025:', season2025);
         setSelectedSeason(season2025);
       } else {
         // Fallback to first season if 2025 not found
-        console.log('⚠️ Season 2025 not found, selecting first season:', seasons[0]);
         setSelectedSeason(seasons[0]);
       }
       setHasAutoSelected(true);
@@ -68,36 +66,25 @@ const Dashboard: React.FC = () => {
   // Auto-select "Tutti" when shifts are loaded
   useEffect(() => {
     if (shifts && shifts.length > 0 && !selectedShift && selectedSeason && hasAutoSelected) {
-      // Seleziona "Tutti" - usa un oggetto speciale con id -1
+      // Select "All" using a sentinel object with id -1
       setSelectedShift({ id: -1, shift_number: 0, season_id: selectedSeason.id, start_date: '', end_date: '' } as any);
     }
   }, [shifts, selectedShift, selectedSeason, setSelectedShift, hasAutoSelected]);
 
-  // Debug logging
-  useEffect(() => {
-    console.log('📊 Dashboard State:', {
-      selectedSeason,
-      selectedShift,
-      shifts,
-      shiftsLoading,
-      shiftsError
-    });
-  }, [selectedSeason, selectedShift, shifts, shiftsLoading, shiftsError]);
-
-  // Fetch problemi (tutti: aperti e risolti)
+  // Fetch problems (both open and closed)
   const { data: openProblems, isLoading: problemsLoading } = useQuery({
     queryKey: ['problems-open', selectedShift?.id, selectedSeason?.id],
     queryFn: async () => {
       if (!selectedShift) return [];
       
-      // Se "Tutti" è selezionato (id === -1), recupera tutti i problemi della stagione
+      // If "All" is selected (id === -1), fetch problems across the whole season
       if (selectedShift.id === -1 && shifts) {
-        // Fai query per ogni turno e unisci i risultati
+        // Query each shift and merge results
         const allProblems = await Promise.all(
           shifts.map(shift => problemService.list({ shift_id: shift.id }))
         );
         const combined = allProblems.flatMap(res => res.data);
-        // Ordina per data più recente e prendi i primi 6
+        // Sort by most recent date and keep the first 6
         return combined.sort((a, b) => 
           new Date(b.reported_date || 0).getTime() - new Date(a.reported_date || 0).getTime()
         ).slice(0, 6);
@@ -109,10 +96,10 @@ const Dashboard: React.FC = () => {
       return response.data.slice(0, 6);
     },
     enabled: !!selectedShift && (selectedShift.id !== -1 || !!shifts),
-    staleTime: 1000 * 60 * 5, // 5 minuti
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
-  // Fetch ultimi lavori
+  // Fetch recent work items
   const { data: recentWorks, isLoading: worksLoading } = useQuery({
     queryKey: ['recent-works', selectedShift?.id, selectedSeason?.id],
     queryFn: async () => {
@@ -319,7 +306,7 @@ const Dashboard: React.FC = () => {
   const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (value === '') {
-      // Deseleziona stagione
+      // Clear season selection
       setSelectedSeason(null);
       setSelectedShift(null);
     } else {
@@ -327,7 +314,7 @@ const Dashboard: React.FC = () => {
       if (season) {
         setSelectedSeason(season);
         setSelectedShift(null);
-        // Invalida le query quando cambia la stagione
+        // Invalidate cached queries when the season changes
         queryClient.invalidateQueries({ queryKey: ['shifts'] });
       }
     }
@@ -336,25 +323,20 @@ const Dashboard: React.FC = () => {
   const handleShiftChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (value === '') {
-      // Deseleziona turno
+      // Clear shift selection
       setSelectedShift(null);
     } else if (value === 'all') {
-      // Seleziona "Tutti" - usa un oggetto speciale
+      // Select "All" using a sentinel object
       setSelectedShift({ id: -1, shift_number: 0, season_id: selectedSeason?.id || 0, start_date: '', end_date: '' } as any);
     } else {
       const shiftId = Number(value);
-      console.log('🔄 handleShiftChange called with:', shiftId);
-      console.log('📋 Available shifts:', shifts);
       
       const shift = shifts?.find((s) => s.id === shiftId);
-      console.log('🎯 Found shift:', shift);
       
       if (shift) {
-        console.log('✅ Setting selected shift:', shift);
         setSelectedShift(shift);
-        // Le query vengono invalidate automaticamente dall'useEffect
+        // Queries are invalidated by the useEffect tied to selectedShift
       } else {
-        console.log('❌ Shift not found for id:', shiftId);
       }
     }
   };
@@ -363,10 +345,8 @@ const Dashboard: React.FC = () => {
     <div className="h-screen overflow-hidden" style={{backgroundColor: '#FFF4EF'}}>
       <CustomScrollbar maxHeight="100vh" onScroll={(scrollTop) => setScrollY(scrollTop)} hideOnMobile={false}>
         <div className="pb-9" style={{backgroundColor: '#FFF4EF'}}>
-      {/* Top Bar con Saluto e Logout */}
       <div style={{backgroundColor: '#FFF4EF', zIndex: 10, position: 'relative'}} className="px-4 pt-10 pb-0.5">
         <div className="max-w-4xl mx-auto flex items-start justify-between">
-          {/* Riquadro Dashboard con immagine di sfondo */}
           <div className="flex-1">
             <div 
               className="relative overflow-hidden rounded-tr-2xl rounded-bl-2xl shadow-sm mb-4"
@@ -378,10 +358,8 @@ const Dashboard: React.FC = () => {
                 zIndex: 10
               }}
             >
-              {/* Overlay scuro per oscurare l'immagine */}
               <div className="absolute inset-0 bg-black opacity-40"></div>
               
-              {/* Testo sopra l'immagine */}
               <div className="ml-6 relative z-10 flex items-center h-full">
                 <h1 className="text-3xl font-bold font-greycliff text-white">
                   Benvenutə alla Home, {currentUser?.full_name || currentUser?.username || 'User'}!                </h1>
@@ -393,7 +371,6 @@ const Dashboard: React.FC = () => {
             </p>
           </div>
           
-          {/* Logout Icon */}
           <button
             onClick={() => {
               setToken(null);
@@ -413,10 +390,8 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Selettori Stagione e Turno */}
       <div style={{backgroundColor: '#FFF4EF', zIndex: 10, position: 'relative'}} className="px-4 pb-2">
         <div className="px-1 max-w-4xl mx-auto flex gap-3">
-          {/* Stagione */}
           <select
             value={selectedSeason?.id || ''}
             onChange={handleSeasonChange}
@@ -434,7 +409,6 @@ const Dashboard: React.FC = () => {
             ))}
           </select>
 
-          {/* Turno */}
           <select
             value={selectedShift?.id === -1 ? 'all' : (selectedShift?.id || '')}
             onChange={handleShiftChange}
@@ -462,12 +436,9 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Contenuto principale - visibile solo se turno selezionato */}
       {selectedShift ? (
         <div style={{backgroundColor: '#FFF4EF'}} className="px-4 pb-9 relative">
-          {/* Cerchi decorativi emerald di sfondo - parallax nuvolette */}
           <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{zIndex: 1, right: '15px'}}>
-            {/* Cerchio emerald grande - alto destra */}
             <div 
               className="absolute rounded-full shadow-sm transition-transform duration-200"
               style={{
@@ -503,11 +474,10 @@ const Dashboard: React.FC = () => {
                 top: '70%',
                 left: '55%',
                 opacity: 0.6,
-                transform: `translateY(-${scrollY * 0.5}px)` // Parallax illimitato verso l'alto
+                transform: `translateY(-${scrollY * 0.5}px)`
               }}
             />
 
-            {/* Cerchio emerald grande - alto destra */}
             <div 
               className="absolute rounded-full shadow-sm transition-transform duration-90"
               style={{
@@ -517,11 +487,10 @@ const Dashboard: React.FC = () => {
                 top: '50%',
                 left: '8%',
                 opacity: 0.4,
-                transform: `translateY(-${scrollY * 0.5}px)` // Parallax illimitato verso l'alto
+                transform: `translateY(-${scrollY * 0.5}px)`
               }}
             />
 
-            {/* Cerchio emerald grande - alto destra */}
             <div 
               className="absolute rounded-full shadow-sm transition-transform duration-200"
               style={{
@@ -531,7 +500,7 @@ const Dashboard: React.FC = () => {
                 top: '34%',
                 right: '13%',
                 opacity: 0.5,
-                transform: `translateY(-${scrollY * 0.5}px)` // Parallax illimitato verso l'alto
+                transform: `translateY(-${scrollY * 0.5}px)`
               }}
             />
 
@@ -540,9 +509,7 @@ const Dashboard: React.FC = () => {
 
           <div className="max-w-4xl mx-auto space-y-4 mt-4 relative" style={{zIndex: 1}}>
 
-            {/* Cerchi Sovrapposti */}
             <div className="ml-3 mb-6 relative h-64 flex items-center justify-center">
-              {/* Cerchio Blu (Spese) - Sinistra, sopra rosso */}
               <div 
                 className="absolute cursor-pointer transition-transform hover:scale-105"
                 style={{
@@ -566,7 +533,6 @@ const Dashboard: React.FC = () => {
                 </div>
               </div>
 
-              {/* Cerchio Rosso (Problemi) - Centro, layer bottom, più grande */}
               <div 
                 className="absolute cursor-pointer transition-transform hover:scale-105"
                 style={{
@@ -590,7 +556,6 @@ const Dashboard: React.FC = () => {
                 </div>
               </div>
 
-              {/* Cerchio Arancione (Lavori) - Destra, sopra rosso */}
               <div 
                 className="absolute cursor-pointer transition-transform hover:scale-105"
                 style={{
@@ -615,10 +580,8 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* Contenitore con sfondo per le tab - nasconde cerchi emerald */}
             <div className="relative space-y-4 pb-9" style={{backgroundColor: '#FFF4EF', zIndex: 1}}>
               
-            {/* Ultimi problemi barche */}
             <div className="bg-white rounded-tr-3xl rounded-bl-3xl px-2 py-5 pb-3 shadow-sm relative" style={{
               background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #FF5958 0%, #FF5958 85%, #39A8FB 85%) border-box',
               border: '0px solid transparent',
@@ -685,7 +648,6 @@ const Dashboard: React.FC = () => {
                             title={problem.status === 'closed' ? 'Segna come aperto' : 'Segna come risolto'}
                           >
                             
-                            {/* Icona normale */}
                             {problem.status === 'closed' ? (
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600 group-hover:hidden" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -695,7 +657,6 @@ const Dashboard: React.FC = () => {
                                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                               </svg>
                             )}
-                            {/* Icona hover (stato opposto) */}
                             {problem.status === 'closed' ? (
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 hidden group-hover:block" viewBox="0 0 20 20" fill="#FF5958">
                                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />

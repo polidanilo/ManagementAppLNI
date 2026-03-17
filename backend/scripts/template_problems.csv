@@ -1,4 +1,0 @@
-boat_id,description,part_affected,reported_date,shift_id,season_id,status,created_by
-1,Perdita olio motore,Motore,2025-01-25,1,1,closed,mario.rossi
-2,Crepa nello scafo,Scafo,2025-02-20,2,1,closed,luca.bianchi
-3,Problema elettrico luci,Impianto elettrico,2025-03-15,3,1,open,giulia.verdi

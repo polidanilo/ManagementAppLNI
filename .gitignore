@@ -23,7 +23,7 @@ build/
 
 # Build outputs
 frontend/dist/
-lniworks/.venv/
+backend/.venv/
 
 # Logs
 *.log

@@ -23,7 +23,7 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ children, className =
       const clientHeight = content.clientHeight;
       const scrollTop = content.scrollTop;
 
-      // Calcola ratio e dimensione thumb
+      // Compute ratio and thumb size
       const ratio = clientHeight / scrollHeight;
       const thumbHeight = Math.max(ratio * clientHeight, 30); // Min 30px
 
@@ -32,12 +32,12 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ children, className =
         thumbRef.current.style.top = `${(scrollTop / scrollHeight) * clientHeight}px`;
       }
 
-      // Nascondi scrollbar se non necessaria
+      // Hide the scrollbar if not needed
       if (scrollbarRef.current) {
         scrollbarRef.current.style.opacity = ratio >= 1 ? '0' : '1';
       }
 
-      // Callback onScroll per parallax
+      // onScroll callback (used for parallax)
       if (onScroll) {
         onScroll(scrollTop);
       }
@@ -69,12 +69,12 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ children, className =
       const scrollbarRect = scrollbar.getBoundingClientRect();
       const thumbHeight = thumbRef.current?.offsetHeight || 0;
       
-      // Calcola nuova posizione
+      // Compute new thumb position
       const mouseY = e.clientY - scrollbarRect.top;
       const maxThumbTop = scrollbarRect.height - thumbHeight;
       const thumbTop = Math.max(0, Math.min(mouseY - thumbHeight / 2, maxThumbTop));
       
-      // Scroll del contenuto
+      // Scroll the content
       const scrollPercentage = thumbTop / maxThumbTop;
       const maxScroll = content.scrollHeight - content.clientHeight;
       content.scrollTop = scrollPercentage * maxScroll;
@@ -95,7 +95,6 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ children, className =
 
   return (
     <div className={`relative ${className}`} style={{ maxHeight }}>
-      {/* Contenuto scrollabile */}
       <div
         ref={contentRef}
         className="overflow-y-scroll pr-2"
@@ -114,13 +113,11 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ children, className =
         {children}
       </div>
 
-      {/* Custom Scrollbar Track */}
       <div
         ref={scrollbarRef}
         className={`absolute top-0 bottom-0 w-2 transition-opacity duration-200 ${hideOnMobile ? 'hidden md:block' : ''}`}
         style={{ right: '0px', zIndex:9 }}
       >
-        {/* Scrollbar Thumb - Base Layer */}
         <div
           ref={thumbRef}
           onMouseDown={handleThumbMouseDown}
@@ -131,7 +128,6 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ children, className =
             minHeight: '20px',
           }}
         >
-          {/* Hover Layer */}
           <div
             className="absolute inset-0 transition-opacity duration-200"
             style={{

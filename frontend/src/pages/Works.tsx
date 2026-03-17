@@ -176,24 +176,20 @@ const Works: React.FC = () => {
     <div className="h-screen overflow-hidden" style={{backgroundColor: '#FFF4EF'}}>
       <CustomScrollbar maxHeight="100vh">
         <div className="pb-9" style={{backgroundColor: '#FFF4EF'}}>
-      {/* Top Bar con Saluto e Logout */}
       <div style={{backgroundColor: '#FFF4EF'}} className="px-4 pt-10 pb-0.5">
         <div className="max-w-4xl mx-auto flex items-start justify-between">
-          {/* Riquadro Imbarcazioni con immagine di sfondo */}
           <div className="flex-1">
             <div 
               className="relative overflow-hidden rounded-tr-2xl rounded-bl-2xl shadow-sm mb-4"
               style={{
                 height: '90px',
-                backgroundImage: 'url(/works7.png)', // ← Modifica qui il nome dell'immagine
+                backgroundImage: 'url(/works7.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}
             >
-              {/* Overlay scuro per oscurare l'immagine */}
               <div className="absolute inset-0 bg-black opacity-40"></div>
               
-              {/* Testo sopra l'immagine */}
               <div className="ml-6 relative z-10 flex items-center h-full">
                 <h1 className="text-3xl font-bold font-greycliff text-white">
                   Lavori
@@ -208,10 +204,8 @@ const Works: React.FC = () => {
         </div>
       </div>
 
-      {/* Selettori Stagione e Turno */}
       <div style={{backgroundColor: '#FFF4EF'}} className="px-4 pb-2">
         <div className="px-1 max-w-4xl mx-auto flex gap-3">
-          {/* Stagione */}
           <select
             value={selectedSeason?.id || ''}
             onChange={handleSeasonChange}
@@ -229,7 +223,6 @@ const Works: React.FC = () => {
             ))}
           </select>
 
-          {/* Turno */}
           <select
             value={selectedShift?.id === -1 ? 'all' : (selectedShift?.id || '')}
             onChange={handleShiftChange}
@@ -257,7 +250,6 @@ const Works: React.FC = () => {
         </div>
       </div>
 
-      {/* Tab Lavori o Messaggio Empty State */}
       {selectedShift ? (
         <div style={{backgroundColor: '#FFF4EF', zIndex: 1, position: 'relative'}} className="px-4 pb-9 mt-8" >
         <div className="bg-white rounded-tr-3xl rounded-bl-3xl px-4 pb-10 mt-6 mb-8 shadow-sm relative" style={{paddingBottom: '15px',
@@ -267,7 +259,6 @@ const Works: React.FC = () => {
           zIndex: 1
         }}>
 
-          {/* Tasti Switch e Pulsante + */}
           <div className="pt-4 mb-1.5 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <button
@@ -323,7 +314,6 @@ const Works: React.FC = () => {
             </div>
           </div>
 
-          {/* Barra di ricerca */}
           <div className="mb-8 ml-0.5 mr-0.5">
             <div className="relative group">
               <input
@@ -343,7 +333,6 @@ const Works: React.FC = () => {
             </div>
           </div>
 
-          {/* Lista Lavori dentro la tab - Stile Dashboard */}
           <CustomScrollbar maxHeight="600px">
             {worksLoading ? (
               <div className="text-center py-8">
@@ -403,7 +392,6 @@ const Works: React.FC = () => {
                           className="group w-8 h-8 mr-1 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-gray-100 transition-all duration-200"
                           title={work.status === 'completed' ? 'Segna come in corso' : 'Segna come completato'}
                         >
-                          {/* Icona normale */}
                           {work.status === 'completed' ? (
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600 group-hover:hidden" viewBox="0 0 20 20" fill="currentColor">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -413,7 +401,6 @@ const Works: React.FC = () => {
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                 </svg>
                           )}
-                          {/* Icona hover (stato opposto) */}
                           {work.status === 'completed' ? (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 hidden group-hover:block" viewBox="0 0 20 20" fill="#FF9151">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />

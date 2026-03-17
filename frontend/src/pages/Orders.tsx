@@ -170,24 +170,20 @@ const Orders: React.FC = () => {
     <div className="h-screen overflow-hidden" style={{backgroundColor: '#FFF4EF'}}>
       <CustomScrollbar maxHeight="100vh">
         <div className="pb-9" style={{backgroundColor: '#FFF4EF'}}>
-      {/* Top Bar con Saluto e Logout */}
       <div style={{backgroundColor: '#FFF4EF'}} className="px-4 pt-10 pb-0.5">
         <div className="max-w-4xl mx-auto flex items-start justify-between">
-          {/* Riquadro Imbarcazioni con immagine di sfondo */}
           <div className="flex-1">
             <div 
               className="relative overflow-hidden rounded-tr-2xl rounded-bl-2xl shadow-sm mb-4"
               style={{
                 height: '90px',
-                backgroundImage: 'url(/orders5.png)', // ← Modifica qui il nome dell'immagine
+                backgroundImage: 'url(/orders5.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}
             >
-              {/* Overlay scuro per oscurare l'immagine */}
               <div className="absolute inset-0 bg-black opacity-20"></div>
               
-              {/* Testo sopra l'immagine */}
               <div className="ml-6 relative z-10 flex items-center h-full">
                 <h1 className="text-3xl font-bold font-greycliff text-white">
                   Ordini
@@ -202,10 +198,8 @@ const Orders: React.FC = () => {
         </div>
       </div>
 
-      {/* Selettori Stagione e Turno */}
       <div style={{backgroundColor: '#FFF4EF'}} className="px-4 pb-2">
         <div className="px-1 max-w-4xl mx-auto flex gap-3">
-          {/* Stagione */}
           <select
             value={selectedSeason?.id || ''}
             onChange={handleSeasonChange}
@@ -223,7 +217,6 @@ const Orders: React.FC = () => {
             ))}
           </select>
 
-          {/* Turno */}
           <select
             value={selectedShift?.id === -1 ? 'all' : (selectedShift?.id || '')}
             onChange={handleShiftChange}

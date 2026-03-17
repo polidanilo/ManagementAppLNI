@@ -51,7 +51,6 @@ const BoatsDetails: React.FC = () => {
 
       if (problem.boat_type) {
         boatService.getPartsByType(problem.boat_type as any).then(res => {
-          console.log('Parts loaded for', problem.boat_type, ':', res.data);
           setParts(res.data);
         }).catch(err => {
           console.error('Error loading parts:', err);
@@ -89,7 +88,7 @@ const BoatsDetails: React.FC = () => {
     const newStatus = editingProblem.status === 'closed' ? 'open' : 'closed';
     setEditingProblem({ ...editingProblem, status: newStatus });
     toggleProblemStatusMutation.mutate({ id: editingProblem.id, status: newStatus });
-    // Forza re-render immediato prima del blur
+    // Force an immediate re-render before blurring
     setTimeout(() => e.currentTarget.blur(), 0);
   };
 

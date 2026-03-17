@@ -59,7 +59,7 @@ const Reports: React.FC = () => {
     },
   });
 
-  // Query per ottenere tutti gli ordini COMPLETED dei turni selezionati
+  // Fetch all COMPLETED orders for the selected shifts
   const { data: ordersData, isLoading: ordersLoading } = useQuery({
     queryKey: ['orders-by-shifts', seasonId, selectedShifts],
     queryFn: async () => {
@@ -68,7 +68,7 @@ const Reports: React.FC = () => {
         orderService.getAll({ shift_id: shiftId })
       );
       const ordersResults = await Promise.all(ordersPromises);
-      // Filtra solo ordini completed
+      // Keep only completed orders
       return ordersResults.flatMap(result => result.data.filter(order => order.status === 'completed'));
     },
     enabled: !!seasonId && selectedShifts.length > 0,
@@ -77,16 +77,16 @@ const Reports: React.FC = () => {
   const handleExport = async () => {
     if (!seasonId || selectedShifts.length === 0) return;
 
-    // Scarica Excel con gli ordini dei turni selezionati
+    // Download an Excel file with the selected shifts' orders
     const res = await orderService.export({
       shift_ids: selectedShifts,
-      sort_by: 'id',  // Ordina per ID crescente
+      sort_by: 'id',  // Sort by increasing ID
       order: 'asc',
     });
     const url = window.URL.createObjectURL(new Blob([res.data]));
     const a = document.createElement('a');
     a.href = url;
-    a.download = `LNIspent.xlsx`;  // Nome file fisso
+    a.download = `LNIspent.xlsx`;  // Fixed filename
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -97,7 +97,7 @@ const Reports: React.FC = () => {
     (sortDir === 'asc' ? 1 : -1) * (a[1] as number - (b[1] as number))
   );
 
-  // Ordinamento ordini dinamico
+  // Dynamic order sorting
   const sortedOrders = [...(ordersData || [])].sort((a, b) => {
     let aVal: any = a[sortField];
     let bVal: any = b[sortField];
@@ -124,14 +124,14 @@ const Reports: React.FC = () => {
     }
   };
 
-  // Paginazione
+  // Pagination
   const totalPages = Math.ceil(sortedOrders.length / ITEMS_PER_PAGE);
   const paginatedOrders = sortedOrders.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
 
-  // Reset pagina quando cambiano i turni
+  // Reset page when shifts change
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedShifts]);

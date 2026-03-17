@@ -15,7 +15,7 @@ import Reports from './pages/Reports.tsx';
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { token } = useAppContext();
   
-  // Se non c'è token, reindirizza al login
+  // If there is no token, redirect to login
   if (!token) {
     return <Navigate to="/login" replace />;
   }
@@ -23,11 +23,11 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   return <>{children}</>;
 };
 
-// Route che reindirizza alla home se già loggato
+// If already authenticated, redirect to home
 const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { token } = useAppContext();
   
-  // Se c'è già un token valido, reindirizza alla home
+  // If a token exists, redirect to home
   if (token) {
     return <Navigate to="/" replace />;
   }

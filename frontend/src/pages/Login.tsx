@@ -58,7 +58,6 @@ const Login: React.FC = () => {
         backgroundColor: '#FFF4EF'
       }}
     >
-      {/* Background Image Layer */}
       <div 
         className="absolute inset-0"
         style={{
@@ -71,7 +70,6 @@ const Login: React.FC = () => {
       />
 
       <div className="w-full max-w-md px-4 relative z-10">
-        {/* Card Login con Gradient Border */}
         <div 
           className="bg-white rounded-tr-3xl rounded-bl-3xl shadow-lg overflow-hidden"
           style={{
@@ -79,7 +77,6 @@ const Login: React.FC = () => {
             border: '2px solid transparent'
           }}
         >
-          {/* Immagine protagonista */}
           <div className="pr-5 pt-6 pb-1 bg-white flex items-center justify-center">
             <img src="/logonotag.jpg" alt="LNINazioni" 
               className="w-full h-auto object-contain rounded-tr-2xl rounded-bl-2xl"
@@ -87,14 +84,12 @@ const Login: React.FC = () => {
             />
           </div>
 
-          {/* Form */}
           <div className="px-8 pb-5">
             <h2 className="text-2xl font-bold font-greycliff black text-center mb-5">
               {isRegister ? 'Registrati' : 'Accedi'}
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-1">
-              {/* Username */}
               <div>
                 <style>{`
                   input[name="username"] {
@@ -132,7 +127,6 @@ const Login: React.FC = () => {
                 />
               </div>
 
-              {/* Password con icona occhio */}
               <div className="relative">
                 <style>{`
                   input[name="password"] {
@@ -181,14 +175,12 @@ const Login: React.FC = () => {
                 </button>
               </div>
 
-              {/* Errore */}
               {error && (
                 <div className="mt-5 p-3 bg-red-50 border border-red-200 text-red-700 rounded text-sm text-center">
                   {error}
                 </div>
               )}
 
-              {/* Pulsante Accedi/Registrati */}
               <div className="flex justify-center pt-6">
                 <button
                   type="submit"
@@ -214,7 +206,6 @@ const Login: React.FC = () => {
               </div>
             </form>
 
-            {/* Switch Accesso/Registrazione */}
             <div className="black text-center mt-3 mb-8">
               <button
                 type="button"
