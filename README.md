@@ -19,7 +19,6 @@ The app ran end-to-end on Render during testing and is production-ready, though 
     </td>
   </tr>
 </table>
-
 <table width="100%" border="0">
   <tr>
     <td width="33%" align="center" valign="top">
@@ -43,7 +42,7 @@ The app ran end-to-end on Render during testing and is production-ready, though 
 - One-tap status toggles on list items (open → closed, pending → completed).
 - Excel export for orders and shift reports.
 
-  <table width="100%" border="0">
+<table width="100%" border="0">
     <tr>
       <td width="33%" align="center" valign="top">
       <img src="assets/boats1.gif" width="100%"><br>
@@ -51,14 +50,14 @@ The app ran end-to-end on Render during testing and is production-ready, though 
       </td>
       <td width="33%" align="center" valign="top">
       <img src="assets/boatsdet1.png" width="100%"><br>
-        <em>Details modal</em>
+        <em>Item details modal</em>
       </td>
       <td width="33%" align="center" valign="top">
-      <img src="assets/boatsadd1.png" width="100%"><br>
-        <em>Add new item modal</em>
+      <img src="assets/ordersadd1.png" width="100%"><br>
+        <em>New item modal</em>
       </td>
     </tr>
-  </table>
+</table>
 
 ## Tech stack
 
