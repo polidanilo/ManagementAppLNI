@@ -3,13 +3,19 @@ This project was a personal challenge of redesigning the management tool used at
 
 The app ran end-to-end on Render during testing and is production-ready, though not officially in use at the center (yet!). Though I built the backend in Python from scratch, the bulk of my effort went into UX, working with TypeScript and Tailwind CSS to match the frictionless feel of the apps I and the staff use daily.
 
-[GIF preview here]
+<p align="center">
+  <img src="assets/home.gif" alt="LNI App Homepage Preview" width="80%">
+</p>
 
 ## Key features
 - Season and shift-based filtering across all views.
 - Bottom-sheet modals for data entry without losing page context.
-- One-tap status toggles on list items (open → closed, pending → completed).
 - Excel export for orders and shift reports.
+- One-tap status toggles on list items (open → closed, pending → completed).
+
+<p align="center">
+  <img src="assets/boats1.gif" alt="Boats Status Toggle Feature" width="60%">
+</p>
 
 ## Tech stack
 
