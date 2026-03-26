@@ -1,7 +1,7 @@
 # Management App - LNI Nazioni
 This project was a personal challenge of redesigning the management tool used at the Italian Naval League nautical center I work at seasonally. The existing software had a rough interface and limited features, so I used it as a practical case study to build a modern, mobile-first alternative from scratch.
 
-The app ran end-to-end on Render during testing and is production-ready, though not officially in use at the center (yet!). Though I built the backend in Python from scratch, the bulk of my effort went into UX, working with TypeScript and Tailwind to match the frictionless feel of the apps I and the staff use daily.
+The app ran end-to-end on Render during testing and is production-ready, though not officially in use at the center (yet!). Though I built the backend in Python from scratch, the bulk of my effort went into UX, working with TypeScript and Tailwind CSS to match the frictionless feel of the apps I and the staff use daily.
 
 [GIF preview here]
 
