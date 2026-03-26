@@ -6,50 +6,59 @@ The app ran end-to-end on Render during testing and is production-ready, though 
 <table width="100%" border="0">
   <tr>
     <td width="33%" align="center" valign="top">
-      <img src="assets/home.gif" width="100%"><br>
-      <em>Dashboard page</em>
+      <img src="assets/login2.png" width="100%"><br>
+      <em>Registration page</em>
     </td>
     <td width="33%" align="center" valign="top">
       <img src="assets/login1.png" width="100%"><br>
       <em>Login page</em>
     </td>
     <td width="33%" align="center" valign="top">
-      <img src="assets/boats2.png" width="100%"><br>
-      <em>Boats tracking page</em>
+      <img src="assets/home.gif" width="100%"><br>
+      <em>Home page</em>
     </td>
   </tr>
 </table>
 
-<p align="center">
-  <img src="assets/home.gif" alt="Dashboard" width="32%">
-  <img src="assets/login1.png" alt="Login" width="32%">
-  <img src="assets/boats2.png" alt="Boats" width="32%">
-</p>
+<table width="100%" border="0">
+  <tr>
+    <td width="33%" align="center" valign="top">
+      <img src="assets/boats2.png" width="100%"><br>
+      <em>Boats tracking page</em>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="assets/works1.png" width="100%"><br>
+      <em>Works tracking page</em>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="assets/orders1.png" width="100%"><br>
+      <em>Orders tracking page</em>
+    </td>
+  </tr>
+</table>
 
 ## Key features
 - Season and shift-based filtering across all views.
 - Bottom-sheet modals for data entry without losing page context.
-- Excel export for orders and shift reports.
 - One-tap status toggles on list items (open → closed, pending → completed).
+- Excel export for orders and shift reports.
 
-<p align="center">
-  <table border="0">
+  <table width="100%" border="0">
     <tr>
-      <td align="center" valign="top">
-        <img src="assets/boats1.gif" alt="One-tap Toggle" width="250px"><br>
-        <em>Interactive toggles</em>
+      <td width="33%" align="center" valign="top">
+      <img src="assets/boats1.gif" width="100%"><br>
+        <em>Interactive status toggles</em>
       </td>
-      <td align="center" valign="top">
-        <img src="assets/works1.png" alt="Works List" width="250px"><br>
-        <em>Works tracking page</em>
+      <td width="33%" align="center" valign="top">
+      <img src="assets/boatsdet1.png" width="100%"><br>
+        <em>Details modal</em>
       </td>
-      <td align="center" valign="top">
-        <img src="assets/orders1.png" alt="Orders List" width="250px"><br>
-        <em>Orders page</em>
+      <td width="33%" align="center" valign="top">
+      <img src="assets/boatsadd1.png" width="100%"><br>
+        <em>Add new item modal</em>
       </td>
     </tr>
   </table>
-</p>
 
 ## Tech stack
 
