@@ -39,7 +39,7 @@ The app ran end-to-end on Render during testing and is production-ready, though 
 ## Key features
 - Season and shift-based filtering across all views.
 - Bottom-sheet modals for data entry without losing page context.
-- One-tap status toggles on list items (open → closed, pending → completed).
+- One-tap status toggles on list items (pending ⟷ completed).
 - Excel export for orders and shift reports.
 
 <table width="100%" border="0">
