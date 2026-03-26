@@ -3,23 +3,27 @@ This project was a personal challenge of redesigning the management tool used at
 
 The app ran end-to-end on Render during testing and is production-ready, though not officially in use at the center (yet!). Though I built the backend in Python from scratch, the bulk of my effort went into UX, working with TypeScript and Tailwind CSS to match the frictionless feel of the apps I and the staff use daily.
 
+<table width="100%" border="0">
+  <tr>
+    <td width="33%" align="center" valign="top">
+      <img src="assets/home.gif" width="100%"><br>
+      <em>Dashboard page</em>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="assets/login1.png" width="100%"><br>
+      <em>Login page</em>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="assets/boats2.png" width="100%"><br>
+      <em>Boats tracking page</em>
+    </td>
+  </tr>
+</table>
+
 <p align="center">
-  <table border="0">
-    <tr>
-      <td align="center" valign="top">
-        <img src="assets/login1.png" alt="Secure JWT Login" width="220px"><br>
-        <em>Secure Login</em>
-      </td>
-      <td align="center" valign="top">
-        <img src="assets/home.gif" alt="Homepage Dashboard" width="220px"><br>
-        <em>Dynamic Dashboard</em>
-      </td>
-      <td align="center" valign="top">
-        <img src="assets/boats2.png" alt="Boats Problem List" width="220px"><br>
-        <em>Boats Management</em>
-      </td>
-    </tr>
-  </table>
+  <img src="assets/home.gif" alt="Dashboard" width="32%">
+  <img src="assets/login1.png" alt="Login" width="32%">
+  <img src="assets/boats2.png" alt="Boats" width="32%">
 </p>
 
 ## Key features
@@ -33,15 +37,15 @@ The app ran end-to-end on Render during testing and is production-ready, though 
     <tr>
       <td align="center" valign="top">
         <img src="assets/boats1.gif" alt="One-tap Toggle" width="250px"><br>
-        <em>Interactive Toggle (GIF)</em>
+        <em>Interactive toggles</em>
       </td>
       <td align="center" valign="top">
         <img src="assets/works1.png" alt="Works List" width="250px"><br>
-        <em>Works Tracking</em>
+        <em>Works tracking page</em>
       </td>
       <td align="center" valign="top">
         <img src="assets/orders1.png" alt="Orders List" width="250px"><br>
-        <em>Orders Management</em>
+        <em>Orders page</em>
       </td>
     </tr>
   </table>
