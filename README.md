@@ -4,7 +4,22 @@ This project was a personal challenge of redesigning the management tool used at
 The app ran end-to-end on Render during testing and is production-ready, though not officially in use at the center (yet!). Though I built the backend in Python from scratch, the bulk of my effort went into UX, working with TypeScript and Tailwind CSS to match the frictionless feel of the apps I and the staff use daily.
 
 <p align="center">
-  <img src="assets/home.gif" alt="LNI App Homepage Preview" width="80%">
+  <table border="0">
+    <tr>
+      <td align="center" valign="top">
+        <img src="assets/login1.png" alt="Secure JWT Login" width="220px"><br>
+        <em>Secure Login</em>
+      </td>
+      <td align="center" valign="top">
+        <img src="assets/home.gif" alt="Homepage Dashboard" width="220px"><br>
+        <em>Dynamic Dashboard</em>
+      </td>
+      <td align="center" valign="top">
+        <img src="assets/boats2.png" alt="Boats Problem List" width="220px"><br>
+        <em>Boats Management</em>
+      </td>
+    </tr>
+  </table>
 </p>
 
 ## Key features
@@ -14,7 +29,22 @@ The app ran end-to-end on Render during testing and is production-ready, though 
 - One-tap status toggles on list items (open → closed, pending → completed).
 
 <p align="center">
-  <img src="assets/boats1.gif" alt="Boats Status Toggle Feature" width="60%">
+  <table border="0">
+    <tr>
+      <td align="center" valign="top">
+        <img src="assets/boats1.gif" alt="One-tap Toggle" width="250px"><br>
+        <em>Interactive Toggle (GIF)</em>
+      </td>
+      <td align="center" valign="top">
+        <img src="assets/works1.png" alt="Works List" width="250px"><br>
+        <em>Works Tracking</em>
+      </td>
+      <td align="center" valign="top">
+        <img src="assets/orders1.png" alt="Orders List" width="250px"><br>
+        <em>Orders Management</em>
+      </td>
+    </tr>
+  </table>
 </p>
 
 ## Tech stack
