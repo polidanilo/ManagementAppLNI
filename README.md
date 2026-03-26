@@ -7,7 +7,7 @@ The app ran end-to-end on Render during testing and is production-ready, though 
   <tr>
     <td width="33%" align="center" valign="top">
       <img src="assets/login2.png" width="100%"><br>
-      <em>Registration page</em>
+      <em>Sign up page</em>
     </td>
     <td width="33%" align="center" valign="top">
       <img src="assets/login1.png" width="100%"><br>
