@@ -36,7 +36,7 @@ The app ran end-to-end on Render during testing and is production-ready, though 
   </tr>
 </table>
 
-## Key features
+## Features
 - Season and shift-based filtering across all views.
 - Bottom-sheet modals for data entry without losing page context.
 - One-tap status toggles on list items (pending ⟷ completed).
@@ -60,7 +60,6 @@ The app ran end-to-end on Render during testing and is production-ready, though 
 </table>
 
 ## Tech stack
-
 | Layer | Technology |
 |-------|-----------|
 | **Frontend** | React, Vite, TypeScript, Tailwind CSS |
