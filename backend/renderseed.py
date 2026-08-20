@@ -12,47 +12,56 @@ def seed_database():
     db = SessionLocal()
     
     try:
-        # ========== SEASONS ==========
-        print("Creating season 2025...")
-        
-        existing_season = db.query(Season).filter(Season.year == 2025).first()
-        if existing_season:
-            print("Season 2025 already exists, skipping...")
-            season_2025 = existing_season
-        else:
-            season_2025 = Season(
-                name="2025",
-                year=2025
-            )
-            db.add(season_2025)
-            db.flush()
-            print("Season 2025 created.")
-        
-        # ========== SHIFTS ==========
-        print("Creating shifts 1 through 6...")
-        
-        existing_shifts = db.query(Shift).filter(Shift.season_id == season_2025.id).count()
-        if existing_shifts > 0:
-            print("Shifts already exist, skipping...")
-        else:
-            shifts_data = [
+        # ========== SEASONS & SHIFTS ==========
+        # Definiamo i dati per entrambe le stagioni
+        seasons_data = {
+            2025: [
                 (1, date(2025, 6, 1), date(2025, 6, 14)),
                 (2, date(2025, 6, 15), date(2025, 6, 28)),
                 (3, date(2025, 6, 29), date(2025, 7, 12)),
                 (4, date(2025, 7, 13), date(2025, 7, 26)),
                 (5, date(2025, 7, 27), date(2025, 8, 9)),
                 (6, date(2025, 8, 10), date(2025, 8, 23)),
+            ],
+            2026: [
+                (1, date(2026, 6, 1), date(2026, 6, 14)),
+                (2, date(2026, 6, 15), date(2026, 6, 28)),
+                (3, date(2026, 6, 29), date(2026, 7, 12)),
+                (4, date(2026, 7, 13), date(2026, 7, 26)),
+                (5, date(2026, 7, 27), date(2026, 8, 9)),
+                (6, date(2026, 8, 10), date(2026, 8, 23)),
             ]
+        }
+
+        for year, shifts_data in seasons_data.items():
+            print(f"Processing season {year}...")
             
-            for shift_num, start, end in shifts_data:
-                shift = Shift(
-                    season_id=season_2025.id,
-                    shift_number=shift_num,
-                    start_date=start,
-                    end_date=end
+            existing_season = db.query(Season).filter(Season.year == year).first()
+            if existing_season:
+                print(f"Season {year} already exists, skipping...")
+                current_season = existing_season
+            else:
+                current_season = Season(
+                    name=str(year),
+                    year=year
                 )
-                db.add(shift)
-            print("Created 6 shifts.")
+                db.add(current_season)
+                db.flush()
+                print(f"Season {year} created.")
+            
+            existing_shifts = db.query(Shift).filter(Shift.season_id == current_season.id).count()
+            if existing_shifts > 0:
+                print(f"Shifts for {year} already exist, skipping...")
+            else:
+                for shift_num, start, end in shifts_data:
+                    shift = Shift(
+                        season_id=current_season.id,
+                        shift_number=shift_num,
+                        start_date=start,
+                        end_date=end
+                    )
+                    db.add(shift)
+                print(f"Created 6 shifts for {year}.")
         
         # ========== BOATS ==========
         print("Creating boats...")
@@ -141,8 +150,8 @@ def seed_database():
         db.commit()
         
         print("\nDatabase seeded successfully.")
-        print("  - 1 season (2025)")
-        print("  - 6 shifts")
+        print("  - 2 seasons (2025, 2026)")
+        print("  - 12 shifts")
         print("  - ~80 boats")
         print("  - ~70 boat parts")
         
